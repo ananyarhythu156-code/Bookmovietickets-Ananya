@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block title %}Book Ticket | Movie Ticket{% endblock %}
+
+{% block section %}
+<style>
+  .book-section {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #f8f9fa;
+    padding: 80px 0;
+    min-height: 100vh;
+  }
+
+  .book-card {
+    background: rgba(17, 25, 40, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    padding: 40px;
+  }
+
+  .book-title {
+    font-weight: 700;
+    color: #38bdf8;
+    margin-bottom: 20px;
+  }
+
+  .movie-info p {
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+  }
+
+  .form-label {
+    color: #f8d210;
+    font-weight: 500;
+  }
+
+  .form-control,
+  .form-select {
+    background-color: #1e293b;
+    border: 1px solid #38bdf8;
+    color: white;
+    border-radius: 10px;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #f8d210;
+    box-shadow: 0 0 10px rgba(248, 210, 16, 0.4);
+  }
+
+  .btn-book {
+    background-color: #38bdf8;
+    border: none;
+    border-radius: 10px;
+    color: #0f172a;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn-book:hover {
+    background-color: #f8d210;
+    color: #000;
+    transform: scale(1.05);
+  }
+</style>
+
+<section class="book-section">
+  <div class="container">
+    <div class="book-card mx-auto col-md-8 col-lg-6">
+      <h2 class="text-center book-title">🎬 Book Ticket - {{ movie.title }}</h2>
+
+      <div class="movie-info mb-3 text-light">
+        <p><strong>Ticket Price:</strong> ₹{{ movie.price }}</p>
+
+        <div class="mb-3 mt-3">
+          <label class="form-label">Select Theater & Showtime</label>
+          <select name="showtime" class="form-select" required>
+            {% regroup movie.showtimes.all by theater as theater_list %}
+            {% for group in theater_list %}
+              <optgroup label="{{ group.grouper.name }}">
+                {% for s in group.list %}
+                  <option value="{{ s.id }}" {% if s.id == showtime.id %}selected{% endif %}>
+                    {{ s.show_time|time:"h:i A" }} on {{ s.show_date }}
+                  </option>
+                {% endfor %}
+              </optgroup>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <hr class="border-light">
+
+      <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label">Your Name</label>
+          {{ form.name }}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Seats</label>
+          {{ form.seats }}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Payment Method</label>
+          <select name="payment_method" class="form-select">
+            <option value="Online">💳 Online Payment</option>
+            <option value="Offline">💵 Pay at Counter</option>
+          </select>
+        </div>
+
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-book px-5 py-2">Proceed to Payment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

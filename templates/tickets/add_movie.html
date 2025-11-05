@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Add Movie | MovieBook{% endblock %}
+
+{% block section %}
+<div class="container mt-5">
+  <div class="card bg-dark text-light shadow-lg border-0 p-4">
+    <h2 class="text-center text-info mb-4">
+      <i class="bi bi-plus-circle"></i> Add a New Movie
+    </h2>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <!-- Title + Category -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-light">Movie Title</label>
+          {{ form.title }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-light">Category</label>
+          {{ form.category }}
+        </div>
+      </div>
+
+      <!-- Genre + Duration -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-light">Genre</label>
+          {{ form.genre }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-light">Duration</label>
+          {{ form.duration }}
+        </div>
+      </div>
+
+      <!-- Release + Price -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-light">Release Year</label>
+          {{ form.release_year }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-light">Ticket Price (₹)</label>
+          {{ form.price }}
+        </div>
+      </div>
+
+      <!-- Producer + Director -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-light">Producer</label>
+          {{ form.producer }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-light">Director</label>
+          {{ form.director }}
+        </div>
+      </div>
+
+      <!-- Actor + Actress -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-light">Actor</label>
+          {{ form.actor }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-light">Actress</label>
+          {{ form.actress }}
+        </div>
+      </div>
+
+      <!-- Showtime -->
+      <div class="mb-3">
+        <label class="form-label text-light">Show Time</label>
+        {{ form.time }}
+      </div>
+
+      <!-- Poster Upload -->
+      <div class="mb-3">
+        <label class="form-label text-light">Poster Image</label>
+        {{ form.poster }}
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label class="form-label text-light">Movie Description</label>
+        {{ form.description }}
+      </div>
+
+      <!-- Availability -->
+      <div class="mb-4">
+        <label class="form-label text-light d-block">Available for Booking</label>
+        {% for radio in form.is_available %}
+          <div class="form-check form-check-inline">
+            {{ radio.tag }}
+            <label class="form-check-label ms-1 text-light">{{ radio.choice_label }}</label>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center">
+        <button type="submit" class="btn btn-info px-5 py-2">
+          <i class="bi bi-cloud-upload"></i> Save Movie
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  input, select, textarea {
+    background-color: #1f2833 !important;
+    border: 1px solid #45a29e !important;
+    color: #fff !important;
+  }
+  input::placeholder, textarea::placeholder {
+    color: #999 !important;
+  }
+  label {
+    font-weight: 500;
+  }
+  .btn-info {
+    background-color: #45a29e;
+    border: none;
+  }
+  .btn-info:hover {
+    background-color: #66fcf1;
+    color: #000;
+  }
+</style>
+{% endblock %}

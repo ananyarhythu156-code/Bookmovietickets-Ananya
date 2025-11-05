@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block section %}
+
+<section class="container my-5 w-50">
+  <div class="card bg-dark text-light shadow-lg border-0 rounded-4">
+    <!-- Deep Orange Header -->
+    <div class="card-header text-white text-center py-3 rounded-top-4" 
+         style="background: linear-gradient(90deg, #ff6600, #ff3300);">
+      <h3 class="mb-0 fw-bold">🎟️ Create Your Account</h3>
+    </div>
+
+    <div class="card-body p-4">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- First Name -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold" style="color:#ff6600;">First Name</label>
+          {{ form.first_name }}
+        </div>
+
+        <!-- Last Name -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold" style="color:#ff6600;">Last Name</label>
+          {{ form.last_name }}
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold" style="color:#ff6600;">Email Address</label>
+          {{ form.email }}
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold" style="color:#ff6600;">Phone Number</label>
+          {{ form.phone_num }}
+          {% if form.errors.phone_num %}
+          <p class="text-danger small mt-1">{{ form.errors.phone_num.0 }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Submit -->
+        <div class="text-center mt-4">
+          <button type="submit" 
+                  class="btn btn-lg px-5 rounded-pill fw-bold text-white shadow-sm"
+                  style="background-color:#ff6600; border:none; transition:0.3s; box-shadow:0 0 10px #ff6600;">
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card-footer bg-dark text-center text-muted py-3">
+      <small>Already have an account?
+        <a href="{% url 'login' %}" class="text-decoration-none fw-semibold" style="color:#ff6600;">Login</a>
+      </small>
+    </div>
+  </div>
+</section>
+
+<!-- Orange Form Glow Styles -->
+<style>
+  .btn:hover {
+    background-color: #ff3300 !important;
+    box-shadow: 0 0 15px #ff3300;
+    transform: scale(1.05);
+  }
+
+  input, select, textarea {
+    background-color: #212529 !important;
+    color: #f8f9fa !important;
+    border: 1px solid #ff6600 !important;
+  }
+
+  input:focus {
+    border-color: #ff3300 !important;
+    box-shadow: 0 0 6px #ff3300;
+    outline: none;
+  }
+</style>
+
+{% endblock %}

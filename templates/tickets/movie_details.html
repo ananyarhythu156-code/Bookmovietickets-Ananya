@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ movie.title }} | Movie Details{% endblock %}
+
+{% block section %}
+<!-- 🎬 Movie Details Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #0f172a, #1e293b); color: #f8f9fa;">
+  <div class="container">
+    <div class="row">
+      <!-- Movie Poster -->
+      <div class="col-md-4">
+        <img src="{{  movie.poster.url }}" class="img-fluid rounded shadow-lg" alt="{{ movie.title }}">
+      </div>
+
+      <!-- Movie Details -->
+      <div class="col-md-8">
+        <h2 class="text-warning fw-bold">{{ movie.title }}</h2>
+        <p><strong>Genre:</strong> {{ movie.category }}</p>
+        <p><strong>Year:</strong> {{ movie.release_year }}</p>
+        <p><strong>Director:</strong> {{ director.name }}</p>
+        <p><strong>Producer:</strong> {{ producer.name }}</p>
+        <p><strong>Actors:</strong> {{ actor.name }}</p>
+        <p><strong>Actress:</strong> {{ actress.name }}</p>
+        <p><strong>Price:</strong> ₹{{ movie.price }}</p>
+
+        <hr class="border-light">
+
+        <!-- 🎭 Theaters & Showtimes -->
+        <h4 class="text-info mt-4">🎭 Available Theaters & Showtimes</h4>
+
+        {% regroup showtimes by theater as theater_groups %}
+        {% for theater in theater_groups %}
+          <div class="bg-dark p-3 my-3 rounded shadow-sm">
+            <h5 class="text-warning mb-3">{{ theater.grouper.name }}</h5>
+
+            {% regroup theater.list by show_date as date_groups %}
+            {% for date_group in date_groups %}
+              <p class="text-light mb-1"><strong>Date:</strong> {{ date_group.grouper|date:"M. j, Y" }}</p>
+              <div class="d-flex flex-wrap">
+                {% for show in date_group.list %}
+                  <a href="{% url 'book' movie.uuid %}?showtime={{ show.id }}"
+                     class="btn btn-outline-info btn-sm m-1">
+                    ⏰ {{ show.show_time|time:"h:i A" }}
+                  </a>
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
+        {% empty %}
+          <p class="text-muted">No showtimes available for this movie.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🎭 Cast & Crew Section -->
+<section class="py-5" style="background-color:#141414;">
+  <div class="container">
+    <hr class="text-warning mb-5">
+    <h3 class="text-warning text-center mb-4">🎭 Cast & Crew</h3>
+
+    <div class="row text-center justify-content-center">
+
+      <!-- Director -->
+      {% if director %}
+        <div class="col-md-3 mb-5">
+          <h5 class="text-warning mb-3">🎬 Director</h5>
+          {% if director.image %}
+            <img src="{{ director.image.url }}" class="rounded-circle shadow mb-2" width="120" height="120" alt="{{ director.name }}">
+          {% else %}
+            <img src="{% static 'images/default_profile.png' %}" class="rounded-circle shadow mb-2" width="120" height="120" alt="Default">
+          {% endif %}
+          <h6 class="text-white">{{ director.name }}</h6>
+        </div>
+      {% endif %}
+
+      <!-- Producer -->
+      {% if producer %}
+        <div class="col-md-3 mb-5">
+          <h5 class="text-warning mb-3">🎥 Producer</h5>
+          {% if producer.image %}
+            <img src="{{ producer.image.url }}" class="rounded-circle shadow mb-2" width="120" height="120" alt="{{ producer.name }}">
+          {% else %}
+            <img src="{% static 'images/default_profile.png' %}" class="rounded-circle shadow mb-2" width="120" height="120" alt="Default">
+          {% endif %}
+          <h6 class="text-white">{{ producer.name }}</h6>
+        </div>
+      {% endif %}
+
+      <!-- Actor -->
+      {% if actor %}
+        <div class="col-md-3 mb-5">
+          <h5 class="text-warning mb-3">🧑‍🎤 Actor</h5>
+          {% if actor.image %}
+            <img src="{{ actor.image.url }}" class="rounded-circle shadow mb-2" width="120" height="120" alt="{{ actor.name }}">
+          {% else %}
+            <img src="{% static 'images/default_profile.png' %}" class="rounded-circle shadow mb-2" width="120" height="120" alt="Default">
+          {% endif %}
+          <h6 class="text-white">{{ actor.name }}</h6>
+        </div>
+      {% endif %}
+
+      <!-- Actress -->
+      {% if actress %}
+        <div class="col-md-3 mb-5">
+          <h5 class="text-warning mb-3">👩‍🎤 Actress</h5>
+          {% if actress.image %}
+            <img src="{{ actress.image.url }}" class="rounded-circle shadow mb-2" width="120" height="120" alt="{{ actress.name }}">
+          {% else %}
+            <img src="{% static 'images/default_profile.png' %}" class="rounded-circle shadow mb-2" width="120" height="120" alt="Default">
+          {% endif %}
+          <h6 class="text-white">{{ actress.name }}</h6>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+{% endblock %}

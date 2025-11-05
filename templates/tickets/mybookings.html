@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}My Bookings | Movie Ticket{% endblock %}
+
+{% block section %}
+<style>
+  .bookings-section {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #f8f9fa;
+    padding: 80px 0;
+    min-height: 100vh;
+  }
+
+  .bookings-card {
+    background: rgba(17, 25, 40, 0.8);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    padding: 30px;
+  }
+
+  .bookings-title {
+    font-weight: 700;
+    color: #38bdf8;
+    margin-bottom: 25px;
+  }
+
+  .table thead {
+    background: rgba(56, 189, 248, 0.1);
+  }
+
+  .table thead th {
+    color: #f8d210;
+    font-weight: 600;
+    border-bottom: 2px solid #38bdf8;
+  }
+
+  .table tbody tr {
+    transition: background 0.3s ease;
+  }
+
+  .table tbody tr:hover {
+    background: rgba(56, 189, 248, 0.15);
+  }
+
+  .no-bookings {
+    color: #94a3b8;
+    font-size: 1.1rem;
+  }
+
+  .price-tag {
+    color: #10b981;
+    font-weight: 600;
+  }
+</style>
+
+<section class="bookings-section">
+  <div class="container">
+    <div class="bookings-card">
+      <h2 class="text-center bookings-title">🎟️ My Bookings</h2>
+
+      {% if bookings %}
+      <div class="table-responsive">
+        <table class="table table-dark table-striped align-middle text-center">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Movie</th>
+              <th>Theater</th>
+              <th>Showtime</th>
+              <th>Seats</th>
+              <th>Total Price</th>
+              <th>Booked On</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for booking in bookings %}
+            <tr>
+              <td>{{ booking.name }}</td>
+              <td>{{ booking.showtime.movie.title }}</td>
+              <td>{{ booking.showtime.theater.name }}</td>
+              <td>{{ booking.showtime.show_date }} {{ booking.showtime.show_time }}</td>
+              <td>{{ booking.seats }}</td>
+              <td class="price-tag">₹{{ booking.total_price }}</td>
+              <td>{{ booking.created_at|date:"M d, Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="text-center no-bookings mt-4">You have no bookings yet.  
+        <a href="{% url 'home' %}" class="text-info text-decoration-none">Book your first ticket!</a>
+      </p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

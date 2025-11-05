@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us | Movie Ticket{% endblock %}
+
+{% block section %}
+<section class="py-5" style="background: radial-gradient(circle at top, #0d0d0d, #1a1a1a); color: white; font-family: 'Poppins', sans-serif;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h1 class="fw-bold display-5" style="letter-spacing: 2px;">
+        <span style="color:#f8d210;">C</span>ontact <span style="color:#f8d210;">U</span>s
+      </h1>
+      <p class="text-muted fst-italic mt-3">
+        Have a question, suggestion, or feedback? We're happy to hear from you!
+      </p>
+    </div>
+
+    <div class="row align-items-stretch g-4">
+      <!-- Contact Form -->
+      <div class="col-md-6">
+        <div class="p-4 rounded-4 shadow-lg" 
+             style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); transition: all 0.3s;">
+          <form method="post" action="">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="name" class="form-label text-warning fw-bold">Full Name</label>
+              <input type="text" class="form-control bg-transparent text-white border-warning" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label text-warning fw-bold">Email Address</label>
+              <input type="email" class="form-control bg-transparent text-white border-warning" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="message" class="form-label text-warning fw-bold">Message</label>
+              <textarea class="form-control bg-transparent text-white border-warning" id="message" name="message" rows="5" placeholder="Your message..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-warning w-100 fw-bold mt-3 py-2"
+                    style="letter-spacing: 1px; box-shadow: 0 0 15px #f8d210; transition: 0.3s;">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-md-6">
+        <div class="p-4 rounded-4 shadow-lg h-100 d-flex flex-column justify-content-between"
+             style="background: linear-gradient(135deg, #111111, #1c1c1c); border: 1px solid rgba(255,255,255,0.1);">
+          <div>
+            <h4 class="fw-bold text-warning mb-3">Get in Touch</h4>
+            <p><i class="bi bi-geo-alt-fill text-warning"></i> &nbsp; 123 Cinema Street, Trivandrum, Kerala</p>
+            <p><i class="bi bi-telephone-fill text-warning"></i> &nbsp; +91 98765 43210</p>
+            <p><i class="bi bi-envelope-fill text-warning"></i> &nbsp; support@movieticket.com</p>
+          </div>
+
+          <div>
+            <hr class="border-light">
+            <h5 class="fw-bold text-warning mb-3">Follow Us</h5>
+            <div>
+              <a href="#" class="text-light me-3"><i class="bi bi-facebook fs-3"></i></a>
+              <a href="#" class="text-light me-3"><i class="bi bi-instagram fs-3"></i></a>
+              <a href="#" class="text-light me-3"><i class="bi bi-twitter fs-3"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional floating glow effect -->
+  <style>
+    .form-control:focus {
+      box-shadow: 0 0 10px #f8d210;
+      border-color: #f8d210;
+    }
+
+    button:hover {
+      background-color: #ffea00 !important;
+      box-shadow: 0 0 25px #ffea00;
+      color: black !important;
+    }
+
+    .bi {
+      transition: 0.3s;
+    }
+
+    .bi:hover {
+      color: #f8d210 !important;
+      transform: scale(1.2);
+    }
+  </style>
+</section>
+{% endblock %}

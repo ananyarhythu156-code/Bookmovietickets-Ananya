@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block section %}
+<div class="container py-5">
+  <h2>All Feedbacks</h2>
+  {% for fb in feedbacks %}
+    <div class="card mb-3 p-3">
+      <h5>{{ fb.name }} ({{ fb.email }})</h5>
+      <p>{{ fb.message }}</p>
+      <small>{{ fb.created_at|date:"M d, Y H:i" }}</small>
+    </div>
+  {% empty %}
+    <p>No feedback received yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

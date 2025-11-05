@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block title %}About Us | Movie Ticket{% endblock %}
+
+{% block section %}
+<style>
+  /* Background */
+  .about-section {
+    background: radial-gradient(circle at top, #0f172a, #1e293b, #0a0a0a);
+    color: #f8f9fa;
+    padding: 100px 0;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Floating gradient overlay */
+  .about-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(248, 210, 16, 0.1), transparent 70%);
+    z-index: 0;
+  }
+
+  .about-container {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Heading */
+  .about-section h1 {
+    font-weight: 800;
+    color: #f8d210;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px rgba(248, 210, 16, 0.4);
+  }
+
+  .about-section p.lead {
+    max-width: 750px;
+    margin: 0 auto 50px;
+    color: #cbd5e1;
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  /* Cards */
+  .about-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.4s ease;
+    backdrop-filter: blur(8px);
+  }
+
+  .about-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 0 25px rgba(248, 210, 16, 0.3);
+  }
+
+  .about-card h5 {
+    color: #f8d210;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .mission-img {
+    border-radius: 14px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .mission-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(248,210,16,0.3);
+  }
+
+  /* Team section */
+  .team-section {
+    margin-top: 70px;
+  }
+
+  .team-section p {
+    color: #cbd5e1;
+  }
+
+  /* Fade animation */
+  .fade-in {
+    animation: fadeInUp 1s ease both;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<section class="about-section text-center">
+  <div class="container about-container">
+    <!-- Title -->
+    <h1 class="mb-3 fade-in">About <span style="color:#38bdf8;">Movie Ticket</span></h1>
+    <p class="lead fade-in" style="animation-delay: 0.2s;">
+      Welcome to <strong>Movie Ticket</strong> — your one-stop destination for a seamless movie booking experience.  
+      Whether it’s action, drama, or comedy — we bring the magic of cinema to your fingertips 🎬.
+    </p>
+
+    <!-- Mission -->
+    <div class="row align-items-center mb-5 fade-in" style="animation-delay: 0.3s;">
+      <div class="col-md-6 mb-4 mb-md-0">
+        <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=800&q=80"
+             alt="Movie Experience" class="img-fluid mission-img">
+      </div>
+      <div class="col-md-6 text-start">
+        <h3 class="fw-bold text-warning mb-3">🎯 Our Mission</h3>
+        <p>
+          To redefine your movie-going experience through technology and design.  
+          From browsing showtimes to booking your favorite seat, everything happens effortlessly.  
+          Movie Ticket ensures convenience, security, and joy in every booking.
+        </p>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="row text-center mb-5 fade-in" style="animation-delay: 0.5s;">
+      <h3 class="fw-bold text-warning mb-4">Why Choose Us?</h3>
+
+      <div class="col-md-4 mb-4">
+        <div class="about-card h-100">
+          <h5>🎟 Easy Booking</h5>
+          <p>Book your tickets in seconds with our lightning-fast, intuitive system.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="about-card h-100">
+          <h5>💳 Secure Payments</h5>
+          <p>We use encrypted gateways for every transaction, ensuring 100% safety.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="about-card h-100">
+          <h5>📅 Real-Time Updates</h5>
+          <p>Stay informed about the latest showtimes, releases, and special offers.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="team-section fade-in" style="animation-delay: 0.7s;">
+      <h3 class="fw-bold text-warning mb-3">👥 Our Team</h3>
+      <p>
+        We’re a dedicated crew of movie enthusiasts, developers, and designers  
+        united by a shared goal — making every booking feel like a red-carpet moment.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home | Movie Tickets{% endblock %}
+
+{% block section %}
+<style>
+  /* ===== Hero Section Styling ===== */
+  .carousel-caption {
+    background: rgba(0, 0, 0, 0.45);
+    padding: 40px 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 1s ease both;
+  }
+
+  .carousel-caption h1 {
+    text-shadow: 0 0 20px rgba(248, 210, 16, 0.4);
+  }
+
+  .carousel-caption a {
+    transition: all 0.3s ease;
+  }
+
+  .carousel-caption a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(248, 210, 16, 0.5);
+  }
+
+  /* ===== Movie Cards ===== */
+  .card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    transform: translateY(0);
+  }
+
+  .card img {
+    border-radius: 15px 15px 0 0;
+    height: 340px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .card:hover img {
+    transform: scale(1.05);
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 25px rgba(248, 210, 16, 0.3);
+  }
+
+  .card-body {
+    background: linear-gradient(145deg, #111, #1a1a1a);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .card-title {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== Section Title ===== */
+  .section-title {
+    text-align: center;
+    color: #f8d210;
+    font-weight: 700;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ===== Animations ===== */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<!-- 🎥 Hero Carousel -->
+<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+  <div class="carousel-inner">
+    <!-- Slide 1 -->
+    <div class="carousel-item active" style="height: 90vh;">
+      <div class="position-relative h-100">
+        <img src="{% static 'images/movie1.jpg' %}" class="d-block w-100 h-100" style="object-fit: cover;">
+        <div class="position-absolute top-0 start-0 w-100 h-100"
+             style="background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.85));"></div>
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 text-white">
+          <h1 class="display-4 fw-bold mb-3">Book Your Favorite Movie Tickets</h1>
+          <p class="lead mb-4">Fast, fun, and just a click away!</p>
+          <a href="#nowShowing" class="btn btn-warning btn-lg me-3">🎟️ Get Ticket</a>
+          <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg">ℹ️ More Info</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="carousel-item" style="height: 90vh;">
+      <div class="position-relative h-100">
+        <img src="{% static 'images/movie3.jpg' %}" class="d-block w-100 h-100" style="object-fit: cover;">
+        <div class="position-absolute top-0 start-0 w-100 h-100"
+             style="background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.85));"></div>
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 text-white">
+          <h1 class="display-4 fw-bold mb-3">Catch the Latest Blockbusters</h1>
+          <p class="lead mb-4">From Hollywood to local hits — always fresh.</p>
+          <a href="#nowShowing" class="btn btn-warning btn-lg me-3">🎟️ Book Now</a>
+          <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg">ℹ️ More Info</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="carousel-item" style="height: 90vh;">
+      <div class="position-relative h-100">
+        <img src="{% static 'images/pet.jpg' %}" class="d-block w-100 h-100" style="object-fit: cover;">
+        <div class="position-absolute top-0 start-0 w-100 h-100"
+             style="background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.85));"></div>
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 text-white">
+          <h1 class="display-4 fw-bold mb-3">Enjoy Cinema in Comfort</h1>
+          <p class="lead mb-4">Smooth booking, cozy theaters, perfect experience.</p>
+          <a href="#nowShowing" class="btn btn-warning btn-lg me-3">🎟️ Get Ticket</a>
+          <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg">ℹ️ More Info</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+  </div>
+</div>
+
+<!-- 🎬 Category Sections -->
+
+<section class="py-5" style="background-color: #0d0d0d; color: white;">
+  <div class="container">
+    <h2 class="section-title">🎥 Coming Soon</h2>
+    <div class="row">
+      {% for movie in coming_soon %}
+        <div class="col-md-3 mb-4">
+          <div class="card bg-dark text-light shadow-sm border-0">
+            <a href="{% url 'movie_details' %}?movie={{ movie.uuid }}">
+              <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}">
+            </a>
+            <div class="card-body text-center">
+              <h5 class="card-title text-warning">{{ movie.title }}</h5>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center text-muted">No coming soon movies available.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="py-5" style="background-color: #0d0d0d; color: white;">
+  <div class="container">
+    <h2 class="section-title">🔥 Now Trending</h2>
+    <div class="row">
+      {% for movie in now_trending %}
+        <div class="col-md-3 mb-4">
+          <div class="card bg-dark text-light shadow-sm border-0">
+            <a href="{% url 'movie_details' %}?movie={{ movie.uuid }}">
+              <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}">
+            </a>
+            <div class="card-body text-center">
+              <h5 class="card-title text-warning">{{ movie.title }}</h5>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center text-muted">No trending movies available.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="py-5" style="background-color: #0d0d0d; color: white;">
+  <div class="container">
+    <h2 class="section-title">⭐ Top Rated</h2>
+    <div class="row">
+      {% for movie in top_rated %}
+        <div class="col-md-3 mb-4">
+          <div class="card bg-dark text-light shadow-sm border-0">
+            <a href="{% url 'movie_details' %}?movie={{ movie.uuid }}">
+              <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}">
+            </a>
+            <div class="card-body text-center">
+              <h5 class="card-title text-warning">{{ movie.title }}</h5>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center text-muted">No top rated movies available.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="py-5" style="background-color: #0d0d0d; color: white;">
+  <div class="container">
+    <h2 class="section-title">💥 Blockbusters</h2>
+    <div class="row">
+      {% for movie in blockbusters %}
+        <div class="col-md-3 mb-4">
+          <div class="card bg-dark text-light shadow-sm border-0">
+            <a href="{% url 'movie_details' %}?movie={{ movie.uuid }}">
+              <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}">
+            </a>
+            <div class="card-body text-center">
+              <h5 class="card-title text-warning">{{ movie.title }}</h5>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center text-muted">No blockbusters available.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="py-5" style="background-color: #0d0d0d; color: white;">
+  <div class="container">
+    <h2 class="section-title">🆕 New Releases</h2>
+    <div class="row">
+      {% for movie in new_releases %}
+        <div class="col-md-3 mb-4">
+          <div class="card bg-dark text-light shadow-sm border-0">
+            <a href="{% url 'movie_details' %}?movie={{ movie.uuid }}">
+              <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}">
+            </a>
+            <div class="card-body text-center">
+              <h5 class="card-title text-warning">{{ movie.title }}</h5>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center text-muted">No new releases available.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

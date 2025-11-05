@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+
+{% block section %}
+
+<section class="container my-5 w-50">
+  <div class="card shadow-lg border-0 rounded-4" style="background-color: #12161f; color: #e9ecef;">
+    
+    <!-- Header same style as Add Movie -->
+    <div class="card-header text-center py-3 rounded-top-4" 
+         style="background: linear-gradient(90deg, #ff8000, #d4b100); color: white;">
+      <h4 class="mb-0 fw-bold">🎟️ User Login</h4>
+    </div>
+
+    <div class="card-body p-4">
+      <form method="post">
+        {% csrf_token %}
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label fw-semibold text-light">Email Address</label>
+          {{ form.username }}
+        </div>
+
+        <!-- Password -->
+        <div class="mb-4">
+          <label for="password" class="form-label fw-semibold text-light">Password</label>
+          {{ form.password }}
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid mb-3">
+          <button type="submit" class="btn btn-lg fw-semibold shadow-sm"
+                  style="background: linear-gradient(90deg, #d46a00, #0066ff); border: none; color: #fff;">
+            Login
+          </button>
+        </div>
+
+        <!-- Extra Links -->
+        <div class="text-center mt-3">
+          {% if msg %}
+            <p class="fw-semibold" style="color: #ff4d4d;">{{ msg }}</p>
+          {% endif %}
+          
+          <span class="text-muted">Don't have an account?</span>
+          <a href="{% url 'register' %}" class="fw-semibold text-info text-decoration-none">Register</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
