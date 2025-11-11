@@ -29,11 +29,11 @@ class RazorpayView(View):
             "receipt": f"rcpt_{str(uuid).replace('-', '')[:30]}"
         }
 
-        payment = client.order.create(data=data)
+        payment = client.order.create(data=data)   # create new payment
 
         rzp_order_id = payment.get('id')
 
-        amount = payment.get('amount')
+        amount = payment.get('amount')   # take order id and save transcation model 
 
         Transactions.objects.create(payment=payment_obj, rzp_order_id=rzp_order_id, amount=amount)
 
@@ -49,12 +49,15 @@ class RazorpayView(View):
 
 
 @method_decorator(csrf_exempt, name='dispatch')
+
 class PaymentVerify(View):
 
     def post(self, request, *args, **kwargs):
 
         razorpay_order_id = request.POST.get('razorpay_order_id')
+
         razorpay_payment_id = request.POST.get('razorpay_payment_id')
+
         razorpay_signature = request.POST.get('razorpay_signature')
 
         client = razorpay.Client(auth=(config('RZP_KEY_ID'), config('RZP_KEY_SECRET')))
@@ -67,7 +70,7 @@ class PaymentVerify(View):
             })
        
 
-        transaction = Transactions.objects.get(rzp_order_id=razorpay_order_id)
+        transaction = Transactions.objects.get(rzp_order_id=razorpay_order_id)   # transcation is taken from db and check it match with rasorpay id
 
         if paid:
 

@@ -3,14 +3,19 @@ from ticket.models import Booking,BaseClass
      
 
 class PaymentStatusChoices(models.TextChoices):
+
     PENDING = 'Pending', 'Pending'
     SUCCESS = 'Success', 'Success'
     FAILED = 'Failed', 'Failed'
 
 class Payment(BaseClass):
+
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
+
     amount = models.FloatField()
+
     status = models.CharField(max_length=20, choices=PaymentStatusChoices.choices, default=PaymentStatusChoices.PENDING)
+    
     paid_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):

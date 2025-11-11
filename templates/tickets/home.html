@@ -196,11 +196,12 @@
   </div>
 </section>
 
+
 <section class="py-5" style="background-color: #0d0d0d; color: white;">
   <div class="container">
-    <h2 class="section-title">⭐ Top Rated</h2>
+    <h2 class="section-title">🆕 New Releases</h2>
     <div class="row">
-      {% for movie in top_rated %}
+      {% for movie in new_releases %}
         <div class="col-md-3 mb-4">
           <div class="card bg-dark text-light shadow-sm border-0">
             <a href="{% url 'movie_details' %}?movie={{ movie.uuid }}">
@@ -212,11 +213,13 @@
           </div>
         </div>
       {% empty %}
-        <p class="text-center text-muted">No top rated movies available.</p>
+        <p class="text-center text-muted">No new releases available.</p>
       {% endfor %}
     </div>
   </div>
 </section>
+
+
 
 <section class="py-5" style="background-color: #0d0d0d; color: white;">
   <div class="container">
@@ -242,9 +245,9 @@
 
 <section class="py-5" style="background-color: #0d0d0d; color: white;">
   <div class="container">
-    <h2 class="section-title">🆕 New Releases</h2>
+    <h2 class="section-title">⭐ Top Rated</h2>
     <div class="row">
-      {% for movie in new_releases %}
+      {% for movie in top_rated %}
         <div class="col-md-3 mb-4">
           <div class="card bg-dark text-light shadow-sm border-0">
             <a href="{% url 'movie_details' %}?movie={{ movie.uuid }}">
@@ -256,10 +259,14 @@
           </div>
         </div>
       {% empty %}
-        <p class="text-center text-muted">No new releases available.</p>
+        <p class="text-center text-muted">No top rated movies available.</p>
       {% endfor %}
     </div>
   </div>
 </section>
+
+
+
+
 
 {% endblock %}

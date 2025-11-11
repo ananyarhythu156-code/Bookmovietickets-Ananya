@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-
+#  custom decorator
 
 def Permission_roles(roles):
 

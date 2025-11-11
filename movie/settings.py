@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+from django.conf import settings
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +31,10 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ananyaticket2025.pythonanywhere.com', '.pythonanywhere.com', 'localhost', '127.0.0.1']
+
+
+
 
 
 # Application definition
@@ -79,10 +84,14 @@ WSGI_APPLICATION = 'movie.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+   'default':{
+       'ENGINE':'django.db.backends.mysql',
+       'NAME':config('DB_NAME'),
+       'USER':config('DB_USER'),
+       'PASSWORD':config('DB_PASSWORD'),
+       'HOST':config('DB_HOST'),
+       'PORT':'3306'
+   }
 }
 
 

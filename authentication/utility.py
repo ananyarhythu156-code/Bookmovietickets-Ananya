@@ -77,6 +77,7 @@ def send_booking_confirmation(phone_num, movie_name, theater_name, show_time, se
         f'Theater: {theater_name}\n'
         f'Show Time: {show_time}\n'
         f'Seats: {seats}\n'
+        f'💳 Payment Method: {payment_method}\n'
         f'Enjoy your movie! 🍿'
     )
     

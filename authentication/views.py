@@ -54,7 +54,7 @@ class LoginView(View):
             print(form.cleaned_data)
 
 
-            user = authenticate(**form.cleaned_data)
+            user = authenticate(**form.cleaned_data)     # check the user in the db
 
             if user:
 
@@ -104,17 +104,17 @@ class RegisterView(View):
 
         if form.is_valid():
 
-            user = form.save(commit=False)
+            user = form.save(commit=False)     # save user instance and not save in db
 
             user.username = user.email
 
             user.role = 'User'
 
-            password = password_generator()
+            password = password_generator()         # custom password ... create random password
 
             print(password)
 
-            user.password = make_password(password)
+            user.password = make_password(password)     #encrypt
 
             with transaction.atomic():   # save user safely
 
@@ -135,7 +135,7 @@ class RegisterView(View):
 
             thread.start()
 
-            # Sending_email(subject,t emplate,context,recipient)
+            # Sending_email(subject,template,context,recipient)
 
             return redirect('login')
         
@@ -154,9 +154,9 @@ class changePasswordView(View):
 
         form = self.form_class()
 
-        email_otp,phone_otp = Generate_otp()
+        email_otp,phone_otp = Generate_otp()   # custum function
 
-        otp,status=OTP.objects.get_or_create(user=request.user)
+        otp,status=OTP.objects.get_or_create(user=request.user)   #udate db as per user 
 
         otp.email_otp = email_otp
 
@@ -178,7 +178,7 @@ class changePasswordView(View):
 
         send_phone_sms(request.user.phone_num,phone_otp)
 
-        request.session['otp_time'] = timezone.now().timestamp()
+        request.session['otp_time'] = timezone.now().timestamp()   #generate otp
 
         remaining_time = 600
 
@@ -205,7 +205,7 @@ class changePasswordView(View):
 
             error = None
 
-            otp = OTP.objects.get(user=request.user)
+            otp = OTP.objects.get(user=request.user)  #take otp from db
 
             db_email_otp = otp.email_otp
 
@@ -225,7 +225,7 @@ class changePasswordView(View):
 
                     request.session.pop('otp_time')
 
-                    return redirect('new_password')
+                    return redirect('new_password')    # verify otp
                 
                 else:
 
@@ -238,6 +238,9 @@ class changePasswordView(View):
         return render(request,'authentication/otp.html',context=data)
     
     
+
+
+
 @method_decorator(Permission_roles(['User']),name='dispatch')   
 class NewPasswordView(View):
 

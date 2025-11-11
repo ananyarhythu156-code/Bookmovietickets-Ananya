@@ -208,12 +208,14 @@ class BookTicketView(View):
         else:
             showtime = Showtime.objects.filter(movie=movie).first()
 
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST)     # form data assign to the object 
 
         if form.is_valid():
 
             booking = form.save(commit=False)
+
             booking.showtime = showtime
+
             booking.total_price = booking.seats * movie.price
 
             payment_method = request.POST.get('payment_method')   #payment handling
@@ -285,15 +287,22 @@ class BookingConfirmationView(View):
 
         if not booking:
 
+
             return redirect('home')  # or render a custom error page
         
 
         if request.user.is_authenticated and request.user.phone_num:
+
             movie_name = booking.showtime.movie.title
+
             theater_name = booking.showtime.theater.name
+
             show_time = f"{booking.showtime.show_date} {booking.showtime.show_time}"
+
             seats = booking.seats
+
             phone_num = request.user.phone_num
+
             payment_method = booking.payment_method
 
 
@@ -317,6 +326,7 @@ class BookingConfirmationView(View):
 
 @method_decorator(Permission_roles(['User']),name='dispatch')
 class MyBookingsView(View):
+
     def get(self, request, *args, **kwargs):
         
         bookings = Booking.objects.all().order_by('-created_at')
@@ -333,10 +343,13 @@ class MyBookingsView(View):
 
 
 class AddFeedbackView(View):
+
     def get(self, request, *args, **kwargs):
+
         return render(request, 'tickets/add_feedback.html')
 
     def post(self, request, *args, **kwargs):
+
         name = request.POST.get('name')
         email = request.POST.get('email')
         message = request.POST.get('message')
@@ -351,8 +364,11 @@ class AddFeedbackView(View):
 
 @method_decorator(Permission_roles(['Admin']),name='dispatch')
 class FeedbackView(View):
+
     def get(self, request, *args, **kwargs):
+
         feedbacks = Feedback.objects.all().order_by('-created_at')
+        
         return render(request, 'tickets/feedback.html', {'feedbacks': feedbacks})   
 
 
